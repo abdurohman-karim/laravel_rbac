@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class HomeController extends Controller
+{
+    public function index(){
+        $is_role_exists = DB::select("SELECT COUNT(*) as cnt FROM `model_has_roles` WHERE model_id = ".auth()->id());
+        if ($is_role_exists[0]->cnt) {
+            return view('home');
+        }
+        else{
+            return view('welcome');
+        }
+
+    }
+
+}
